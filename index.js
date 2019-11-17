@@ -66,6 +66,25 @@ app.post("/create", (req, res) => {
   })
 })
 
+app.get("/", (req, res) => {
+  MongoClient.connect(URL, (err, db) => {
+    if(err) throw err;
+    var dbo = db.db(DB_NAME)
+    dbo.collection("posts").find({}).toArray((err, result) => {
+      if(err) throw err;
+      if(result){
+        res.json({
+          type: "ok",
+          result
+        })
+      }else{
+        res.status(500);
+        res.json({type: "bad", result})
+      }
+    })
+  })
+})
+
 app.listen(PORT, () => {
   console.log("Server listening on port", PORT)
 })
