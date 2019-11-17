@@ -46,6 +46,7 @@ app.post("/create", (req, res) => {
             "lat": req.body.position.lat,
             "lng": req.body.position.lng
         },
+        "photo": req.body.photo,
         "time": new Date()
       }
       , (err, result) => {
